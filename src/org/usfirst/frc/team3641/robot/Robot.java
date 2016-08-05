@@ -7,7 +7,7 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit()
 	{
-		
+		Teleop.getInstance();
 	}
 	
 	public void autonomousInit()
@@ -22,7 +22,7 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic()
 	{
-		
+		Teleop.run();
 	}
 	
 	public void testPeriodic()
