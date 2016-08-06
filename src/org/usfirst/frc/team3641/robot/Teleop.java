@@ -21,6 +21,6 @@ public class Teleop
 	
 	public static void run()
 	{
-		
+		Swerve.Drive(dualshock.getLeftX(), dualshock.getLeftY(), dualshock.getRightX());
 	}
 }

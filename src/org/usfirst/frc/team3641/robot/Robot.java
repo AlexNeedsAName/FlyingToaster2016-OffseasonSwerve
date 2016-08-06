@@ -8,6 +8,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit()
 	{
 		Teleop.getInstance();
+		Swerve.getInstance();
+		PID.getInstance();
 	}
 	
 	public void autonomousInit()
