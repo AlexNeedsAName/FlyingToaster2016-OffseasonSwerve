@@ -31,7 +31,11 @@ public class Wheel
 	
 	public void Go()
 	{
-		current = encoderToRadians(rotationTalon.getEncPosition());
+		if(Swerve.isFieldCentric())
+		{
+			radians = fixRadians(radians  - Sensor.gyro.getAngle()*Constants.DEGREE_TO_RADIAN);
+		}
+		current = fixRadians(rotationTalon.getEncPosition()*Constants.ENCODER_TICKS_PER_RADIAN);
 		double error = calcError(radians,current);
 		double output = PID.loop(error, errorRefresh, lastError, Constants.SWERVE_DEADBAND, Constants.SWERVE_kP, Constants.SWERVE_kI);
 		errorRefresh += error;
@@ -84,9 +88,8 @@ public class Wheel
 		return error;
 	}
 	
-	public static double encoderToRadians(double ticks)
+	public static double fixRadians(double radians)
 	{
-		double radians = ticks * Constants.ENCODER_TICKS_PER_RADIAN;
 		while(radians >= Math.PI*2)
 		{
 			radians -= Math.PI*2;

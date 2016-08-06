@@ -5,6 +5,7 @@ public class Swerve
 {
 	public static Swerve instance;
 	public static Wheel wI, wII, wIII, wIV;
+	private static boolean fieldCentric = true;
 
 	public static Swerve getInstance()
 	{
@@ -32,14 +33,9 @@ public class Swerve
 			leftX = Math.sin(-input[1]+Math.PI/2);
 			leftY = Math.cos(-input[1]+Math.PI/2);
 		}
-		if(rightX > 1)
-		{
-			rightX=1;
-		}
-		else if(rightX < -1)
-		{
-			rightX = -1;
-		}
+		
+		if(rightX > 1) rightX=1;
+		else if(rightX < -1) rightX = -1;
 		
 		//Calculate polar coordinates for each wheel
 		wI.set(helpMePolarize(rightX+leftX, -rightX+leftY));
@@ -69,60 +65,47 @@ public class Swerve
 		double radians;
 		if(x==0)
 		{
-			if(y==0)
-			{
-				radians = 0.0;
-			}
-			else if(y<0)
-			{
-				radians = Math.PI*3/2;
-			}
-			else
-			{
-				radians = Math.PI/2;
-			}
+			if(y==0) radians = 0.0;
+			else if(y<0) radians = Math.PI*3/2;
+			else radians = Math.PI/2;
 		}
 		else if(y==0)
 		{
-			if(x>0)
-			{
-				radians = 0.0;
-			}
-			else
-			{
-				radians = Math.PI;
-			}
+			if(x>0) radians = 0.0;
+			else radians = Math.PI;
 		}
 		else
 		{
-			radians = Math.atan(Math.abs(y/x));
-			if(x<0 && y>0)		//Quadrant II
-			{
-				radians = Math.PI - radians;
-			}
-			else if(x<0 && y<0)	//Quadrant III
-			{
-				radians += Math.PI;
-			}
-			else if(x>0 && y<0)	//Quadrant IV
-			{
-				radians = Math.PI*2 - radians;
-			}
+			radians = Math.atan(Math.abs(y/x));					//Quadrant I
+			if(x<0 && y>0) radians = Math.PI - radians;			//Quadrant II
+			else if(x<0 && y<0) radians += Math.PI;				//Quadrant III
+			else if(x>0 && y<0) radians = Math.PI*2 - radians;	//Quadrant IV
 		}
 		double[] answer = {radians, Math.hypot(x, y)};
 		return answer;
-
 	}
 		
 	public static double findMax(double... values)
 	{
 		double max = Double.NEGATIVE_INFINITY;
 		
-		for (double d : values)
-		{
-			if (d > max) max = d;
-		}
+		for (double d : values)	if (d > max) max = d;
 		
 		return max;
+	}
+
+	public static boolean isFieldCentric()
+	{
+		return fieldCentric;
+	}
+	
+	public static void setFieldCentric()
+	{
+		fieldCentric = true;
+	}
+	
+	public static void setRobotCentric()
+	{
+		fieldCentric = false;
 	}
 }

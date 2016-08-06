@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3641.robot;
 
+import java.lang.Math;
+
 public class Constants
 {
 	//Controllers:
@@ -16,10 +18,11 @@ public class Constants
 	public static final int ROTATE_WHEEL_IV		= 7;
 	
 	//Misc Conversions:
-	public static final double ENCODER_TICKS_PER_RADIAN = 0.0174533; //360 ticks per rotation, probably not the final value?
+	public static final double ENCODER_TICKS_PER_RADIAN = 0.0;			//TODO: Set this once we know what encoder we're using
+	public static final double DEGREE_TO_RADIAN			= 180/Math.PI;
 	
 	//PID
 	public static final double SWERVE_DEADBAND	= .5;
-	public static final double SWERVE_kP 		= 0;
-	public static final double SWERVE_kI		= 0;
+	public static final double SWERVE_kP 		= 0;					//TODO: Tune this once we have a chassis
+	public static final double SWERVE_kI		= 0;					//TODO: Tune this once we have a chassis
 }

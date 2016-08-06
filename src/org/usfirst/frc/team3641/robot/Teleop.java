@@ -22,5 +22,8 @@ public class Teleop
 	public static void run()
 	{
 		Swerve.Drive(dualshock.getLeftX(), dualshock.getLeftY(), dualshock.getRightX());
+		
+		if(dualshock.getLeftBumper()) Swerve.setRobotCentric();
+		else if(dualshock.getRightBumper()) Swerve.setFieldCentric();
 	}
 }
