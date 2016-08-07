@@ -10,6 +10,7 @@ public class Robot extends IterativeRobot {
 		Teleop.getInstance();
 		Swerve.getInstance();
 		PID.getInstance();
+		UDP.driverStation = new UDP(Constants.DRIVER_STATION_IP, Constants.DRIVER_STATION_PORT);
 	}
 	
 	public void autonomousInit()

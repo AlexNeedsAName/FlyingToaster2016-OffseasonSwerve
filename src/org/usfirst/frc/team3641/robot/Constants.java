@@ -4,6 +4,10 @@ import java.lang.Math;
 
 public class Constants
 {
+	//IPs:
+	public static final String DRIVER_STATION_IP = "10.36.41.5";	//I think this is the IP... I'll check on Tuesday :P TODO: Set IP
+	public static final int DRIVER_STATION_PORT = 3641;
+	
 	//Controllers:
 	public static final int PS4_CONTROLLER = 0;
 	

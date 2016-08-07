@@ -6,6 +6,8 @@ import java.net.InetAddress;
 
 public class UDP
 {
+	public static UDP driverStation;
+	
 	private int port;
 	private InetAddress address;
 	private DatagramSocket socket;
@@ -57,6 +59,11 @@ public class UDP
 			e.printStackTrace();
 			return null;
 		}	
+	}
+	
+	public static void writeToConsole(String message)
+	{
+		driverStation.sendData(":PRINT:"+message);
 	}
 
 }
