@@ -6,6 +6,7 @@ public class Swerve
 	public static Swerve instance;
 	public static Wheel wI, wII, wIII, wIV;
 	private static boolean fieldCentric = true;
+	private static double[] input, lastInput;
 
 	public static Swerve getInstance()
 	{
@@ -27,12 +28,20 @@ public class Swerve
 	public static void Drive(double leftX, double leftY, double rightX)
 	{
 		//Fix my OCD about controllers returning values greater than 1
-		double[] input = helpMePolarize(leftX, leftY);
-		if(input[0] > 1);
+		input = helpMePolarize(leftX, leftY);
+		if(input[1] > 1)
 		{
-			leftX = Math.sin(-input[1]+Math.PI/2);
-			leftY = Math.cos(-input[1]+Math.PI/2);
+			leftX = Math.sin(-input[0]+Math.PI/2);
+			leftY = Math.cos(-input[0]+Math.PI/2);
 		}
+		//Fixing my OCD about the wheels spinning when controller is released
+		else if(input[1] < .1)
+		{
+			input[0] = lastInput[0];
+			leftX = input[1]*Math.sin(-input[0]+Math.PI/2);
+			leftY = input[1]*Math.cos(-input[0]+Math.PI/2);
+		}
+		lastInput = input;
 		
 		if(rightX > 1) rightX=1;
 		else if(rightX < -1) rightX = -1;
