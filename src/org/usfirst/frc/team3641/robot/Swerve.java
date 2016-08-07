@@ -37,9 +37,8 @@ public class Swerve
 		//Fixing my OCD about the wheels spinning when controller is released
 		else if(input[1] < .1)
 		{
-			input[0] = lastInput[0];
-			leftX = input[1]*Math.sin(-input[0]+Math.PI/2);
-			leftY = input[1]*Math.cos(-input[0]+Math.PI/2);
+			leftX = 0.0001*Math.sin(-lastInput[0]+Math.PI/2);	//This should just leave the wheels where they are, but supply no power
+			leftY = 0.0001*Math.cos(-lastInput[0]+Math.PI/2);
 		}
 		lastInput = input;
 		
