@@ -116,4 +116,9 @@ public class Swerve
 	{
 		fieldCentric = false;
 	}
+	
+	public static void sendPositions()
+	{
+		UDP.driverStation.sendData(":SWERVE:R="+ Sensor.gyro.getAngle() +";wIR="+ wI.getRotation() +";wIP="+ wI.getPower() +";wIIR="+ wII.getRotation() +";wIIP="+ wII.getPower() +";wIIIR="+ wIII.getRotation() +";wIIIP="+ wIII.getPower() +";wIVR="+ wIV.getRotation() +";wIVP="+ wIV.getPower());
+	}
 }

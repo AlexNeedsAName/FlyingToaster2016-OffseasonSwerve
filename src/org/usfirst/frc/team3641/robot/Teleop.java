@@ -25,5 +25,7 @@ public class Teleop
 		
 		if(dualshock.getLeftBumper()) Swerve.setRobotCentric();
 		else if(dualshock.getRightBumper()) Swerve.setFieldCentric();
+		
+		if(dualshock.getSquareButton()) Swerve.sendPositions();
 	}
 }

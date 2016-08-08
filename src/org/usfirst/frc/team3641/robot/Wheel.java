@@ -18,6 +18,10 @@ public class Wheel
 	{
 		return power;
 	}
+	public double getRotation()
+	{
+		return radians;
+	}
 	public void setPower(double Power)
 	{
 		power = Power;
