@@ -20,9 +20,9 @@ public class Swerve
 	public Swerve()
 	{
 		wI = new Wheel(Constants.ROTATE_WHEEL_I,Constants.DRIVE_WHEEL_I);
-		wII = new Wheel(Constants.ROTATE_WHEEL_I,Constants.DRIVE_WHEEL_I);
-		wIII = new Wheel(Constants.ROTATE_WHEEL_I,Constants.DRIVE_WHEEL_I);
-		wIV = new Wheel(Constants.ROTATE_WHEEL_I,Constants.DRIVE_WHEEL_I);
+		wII = new Wheel(Constants.ROTATE_WHEEL_II,Constants.DRIVE_WHEEL_II);
+		wIII = new Wheel(Constants.ROTATE_WHEEL_III,Constants.DRIVE_WHEEL_III);
+		wIV = new Wheel(Constants.ROTATE_WHEEL_IV,Constants.DRIVE_WHEEL_IV);
 	}
 	
 	public static void Drive(double leftX, double leftY, double rightX)
@@ -35,7 +35,7 @@ public class Swerve
 			leftY = Math.cos(-input[0]+Math.PI/2);
 		}
 		//Fixing my OCD about the wheels spinning when controller is released
-		else if(input[1] < .1)
+		else if(input[1] < Constants.IGNORE_INPUT_UNDER)
 		{
 			leftX = 0.0001*Math.sin(-lastInput[0]+Math.PI/2);	//This should just leave the wheels where they are, but supply no power
 			leftY = 0.0001*Math.cos(-lastInput[0]+Math.PI/2);
@@ -46,10 +46,10 @@ public class Swerve
 		else if(rightX < -1) rightX = -1;
 		
 		//Calculate polar coordinates for each wheel
-		wI.set(helpMePolarize(rightX+leftX, -rightX+leftY));
-		wII.set(helpMePolarize(rightX+leftX, rightX+leftY));
-		wIII.set(helpMePolarize(-rightX+leftX, rightX+leftY));
-		wIV.set(helpMePolarize(-rightX+leftX, -rightX+leftY));
+		wI.set(helpMePolarize(rightX/Constants.WIDTH+leftX, -rightX/Constants.LENGTH+leftY));
+		wII.set(helpMePolarize(rightX/Constants.WIDTH+leftX, rightX/Constants.LENGTH+leftY));
+		wIII.set(helpMePolarize(-rightX/Constants.WIDTH+leftX, rightX/Constants.LENGTH+leftY));
+		wIV.set(helpMePolarize(-rightX/Constants.WIDTH+leftX, -rightX/Constants.LENGTH+leftY));
 		
 		//Adjust output so no motor is given a value greater than 1
 		double max = findMax(wI.getPower(),wII.getPower(),wIII.getPower(),wIV.getPower());
