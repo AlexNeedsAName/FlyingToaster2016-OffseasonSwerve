@@ -39,7 +39,7 @@ public class Wheel
 	{
 		if(Swerve.isFieldCentric())
 		{
-			radians = fixRadians(radians  - Sensor.gyro.getAngle()*Constants.DEGREE_TO_RADIAN);
+			radians = fixRadians(radians  - Sensors.getAngle()*Constants.DEGREE_TO_RADIAN);
 		}
 		current = fixRadians(rotationTalon.getEncPosition()*Constants.ENCODER_TICKS_PER_RADIAN);
 		double error = calcError(radians,current);
