@@ -7,6 +7,7 @@ public class Constants
 	//Robot Size Proportions (one of these must equal one)
 	public static final double WIDTH	= Math.sqrt( 1 ); //From Wheel I to Wheel II, the front of the robot
 	public static final double LENGTH	= Math.sqrt( 1 ); //From Wheel II to Wheel III, the side of the robot
+	public static final int NUMBER_OF_WHEELS = 4;
 
 	//IPs:
 	public static final String DRIVER_STATION_IP = "10.36.41.5";	//I think this is the IP... I'll check on Tuesday :P TODO: Set IP

@@ -7,6 +7,7 @@ public class Wheel
 {
 	private double radians = 0;
 	private double power = 0;
+	private double mX, mY;
 	private double current = 0;
 	private double errorRefresh = 0;
 	private double lastError = 0;
@@ -22,13 +23,14 @@ public class Wheel
 	{
 		return radians;
 	}
-	public void setPower(double Power)
+	public void capPower(double max)
 	{
-		power = Power;
+		power = power/max;
 	}
 	
-	public void set(double[] values)
+	public void set(double lx, double ly, double rx)
 	{
+		double[] values = Swerve.helpMePolarize(rx*mX/Constants.WIDTH+lx, -rx*mY/Constants.LENGTH+ly);
 		radians = values[0];
 		power = values[1];
 	}
@@ -49,8 +51,14 @@ public class Wheel
 		driveTalon.set(power);
 	}
 	
-	Wheel(int RotationTalon, int DriveTalon)
+	Wheel(int RotationTalon, int DriveTalon, int i, int n)
 	{
+		double theta = 0;
+		if(n==4) theta = 5*Math.PI/4;
+		
+		mX = Math.sin(2*Math.PI*i/n + theta); //X Multiplier when rotating
+		mY = Math.cos(2*Math.PI*i/n + theta); //Y Multiplier when rotating
+		
 		rotationTalon = new CANTalon(RotationTalon);
 		rotationTalon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		driveTalon = new CANTalon(DriveTalon);
